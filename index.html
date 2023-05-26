@@ -1,85 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5-Day Weather Forecast</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-  </head>
-  <body>
-    <header class="container-fluid text-center p-3">
-      <h1>5-Day Weather Forecast</h1>
-    </header>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-3 p-3">
-          <h4 class="mt-1">Search City:</h4>
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              id="search_city"
-              class="form-control"
-              placeholder="Enter City Name"
-              aria-label="Enter City Name"
-            />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Bootstrap and Fontawesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/fce833bd64.js" crossorigin="anonymous"></script>
+  <!-- Bootstrap and Fontawesome -->
+  <title>5-Day Weather Forecast</title>
+</head>
 
-            <button class="btn btn-primary" type="button" id="search_button">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-search"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                />
-              </svg>
+<body>
+  <!-- Main Title -->
+  <header class="container-fluid text-center text-white bg-primary p-2">
+    <h1>5-Day Weather Forecast</h1>
+  </header>
+  <!-- Main Title -->
+
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <!-- Searchbar and History Container -->
+      <div class="col-lg-3 bg-light">
+        <h5 class="m-2">Search:</h5>
+        <div class="input-group my-3">
+          <input id="enter-city" type="text" class="form-control" placeholder="Enter a city" aria-label="Enter a city">
+          <div class="input-group-append">
+            <button class="btn btn-primary btn-lg" type="button" id="search-button">
+              <i class="fas fa-search"></i>
             </button>
           </div>
         </div>
-        <div class="col-lg-9 p-3">
-            <div class="row mr-0">
-                <div class="col-lg-11 card m-3" id="current_weather">
-                    <div class="card-body">
-                        <h3 id="city_name" class="city-name align-middle"></h3>
-                        <img id="current_pic" alt="">
-                        <p id="temperature"></p>
-                        <p id="humidity"></p>
-                        <p id="wind_speed"></p>
-                        <p id="UV_index"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="row" id="fiveday_header">
-                <div class="col-12">
-                    <h3>5-Day Forecast</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
-                <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
-                <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
-                <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
-                <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
-            </div>
+        <button class="btn btn-primary my-3" type="button" id="clear-history">Clear history</button>
+        <form id="history"></form>
       </div>
-      
+      <!-- Searchbar and History Container -->
+
+
+      <div class="col-lg-9">
+
+        <!-- Current Weather Container -->
+        <div class="row">
+          <div class="col-lg-11 card m-3 " id="current-weather">
+            <div class="card-body">
+              <h3 id="city-name" class="city-name align-middle"></h3>
+              <img id="current-pic" alt="">
+              <p id="temperature"></p>
+              <p id="humidity"></p>
+              <p id="wind-speed"></p>
+              <p id="UV-index"></p>
+            </div>
+          </div>
+        </div>
+        <!-- Current Weather Container -->
+
+        <!-- Forecast Container -->
+        <div class="row" id="five-day-header">
+          <div class="col-12">
+            <h3>5-Day Forecast</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 forecast bg-primary text-white m-3 rounded"></div>
+          <div class="col-md-2 forecast bg-primary text-white m-3 rounded"></div>
+          <div class="col-md-2 forecast bg-primary text-white m-3 rounded"></div>
+          <div class="col-md-2 forecast bg-primary text-white m-3 rounded"></div>
+          <div class="col-md-2 forecast bg-primary text-white m-3 rounded"></div>
+        </div>
+        <!-- Forecast Container -->
+
+      </div>
     </div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-      crossorigin="anonymous"
-    ></script>
-    <script src="./assets/js/script.js"></script>
-  </body>
+  </div>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./assets/js/script.js"></script>
+</body>
+
 </html>
