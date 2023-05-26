@@ -1,19 +1,18 @@
 // Assigning all selector to a variable
-const cityEl = document.getElementById("enter-city");
-const searchEl = document.getElementById("search-button");
-const clearEl = document.getElementById("clear-history");
-const nameEl = document.getElementById("city-name");
+const enterCityEl = document.getElementById("enter-city");
+const searchButtonEl = document.getElementById("search-button");
+const clearHistoryEl = document.getElementById("clear-history");
+const cityNameEl = document.getElementById("city-name");
 const currentPicEl = document.getElementById("current-pic");
-const currentTempEl = document.getElementById("temperature");
-const currentHumidityEl = document.getElementById("humidity");
-const currentWindEl = document.getElementById("wind-speed");
-const currentUVEl = document.getElementById("UV-index");
+const temperatureEl = document.getElementById("temperature");
+const humidityEl = document.getElementById("humidity");
+const windSpeed = document.getElementById("wind-speed");
 const historyEl = document.getElementById("history");
-var fiveDayEl = document.getElementById("five-day-header");
-var currentWeatherEl = document.getElementById("current-weather");
-let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+
 
 function initPage() {
+
+  let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
   // Assigning API key to a variable
   const APIKey = "e8d973b8fba73a98a71fa8c57b8adc66";
@@ -24,23 +23,26 @@ function initPage() {
     // get the current weather of the city entered in the searchbar
     axios.get(queryURL)
       .then(function (response) {
+
         // Parse response to display current weather
         const currentDate = new Date(response.data.dt * 1000);
         const day = currentDate.getDate();
         const month = currentDate.getMonth() + 1;
         const year = currentDate.getFullYear();
-        nameEl.innerHTML = response.data.name + " (" + month + "/" + day + "/" + year + ") ";
+        cityNameEl.innerHTML = response.data.name + " (" + month + "/" + day + "/" + year + ") ";
         let weatherPic = response.data.weather[0].icon;
         currentPicEl.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherPic + "@2x.png");
         currentPicEl.setAttribute("alt", response.data.weather[0].description);
-        currentTempEl.innerHTML = "Temperature: " + k2f(response.data.main.temp) + " &#176F";
-        currentHumidityEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
-        currentWindEl.innerHTML = "Wind Speed: " + response.data.wind.speed + " MPH";
+        temperatureEl.innerHTML = "Temperature: " + k2f(response.data.main.temp) + " &#176F";
+        humidityEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
+        windSpeed.innerHTML = "Wind Speed: " + response.data.wind.speed + " MPH";
+
         // get the 5-day forecast of the city entered in the searchbar
         let cityID = response.data.id;
         let forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + APIKey;
         axios.get(forecastQueryURL)
           .then(function (response) {
+
             //  Parse response to display forecast for next 5 days
             const forecastEls = document.querySelectorAll(".forecast");
             for (i = 0; i < forecastEls.length; i++) {
@@ -54,6 +56,7 @@ function initPage() {
               forecastDateEl.setAttribute("class", "mt-3 mb-0 forecast-date");
               forecastDateEl.innerHTML = forecastMonth + "/" + forecastDay + "/" + forecastYear;
               forecastEls[i].append(forecastDateEl);
+
               // Icon images for current weather
               const forecastWeatherEl = document.createElement("img");
               forecastWeatherEl.setAttribute("src", "https://openweathermap.org/img/wn/" + response.data.list[forecastIndex].weather[0].icon + "@2x.png");
@@ -71,8 +74,8 @@ function initPage() {
   }
 
   // Get history from local storage if any
-  searchEl.addEventListener("click", function () {
-    const searchTerm = cityEl.value;
+  searchButtonEl.addEventListener("click", function () {
+    const searchTerm = enterCityEl.value;
     getWeather(searchTerm);
     searchHistory.push(searchTerm);
     localStorage.setItem("search", JSON.stringify(searchHistory));
@@ -80,7 +83,7 @@ function initPage() {
   })
 
   // Clear History button
-  clearEl.addEventListener("click", function () {
+  clearHistoryEl.addEventListener("click", function () {
     localStorage.clear();
     searchHistory = [];
     renderSearchHistory();
